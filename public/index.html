@@ -166,10 +166,7 @@
 			</dl>
 		  
 		  
-		  <input type="button"  id = "btn_previewActivity" value="预&nbsp;&nbsp;览" />
-		  
-		  
-		  
+		  <input type="button"  id = "btn_previewActivity" value="预&nbsp;&nbsp;览" />	  
 		  </form>
 		
 		</div>
@@ -213,18 +210,34 @@
 		  <input type="button"  id = "btn_okActivity" value="确&nbsp认&nbsp发&nbsp布" />
           </div>
   
+</script>
+    
+    
+<script type="text/template" id="template-page_userpage">
 
-		
+    <div id="user_info"  >
+    <h1><%= AV.User.current().escape("othername") %></h1>
+    <h1><%= AV.User.current().escape("username") %></h1>
+    </div>
+    
+    <div id="user_activity_info">
+    
+    <ul id="activity_list">
+    </ul>
+    
+    </div>
+    
 
-	
-		
-
-	
-   
 </script>
 
+<script type="text/template" id="template-page_activity_list">
 
+   <li>
+   <input class="text" value="<%= _.escape(content) %>">
+   </li>
+    
 
+</script>
 
 
 </body>
