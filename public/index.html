@@ -1,232 +1,343 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>HighGroup</title>
 
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>HighGroup</title>
 
+		<link href="css/css.css" rel="stylesheet" />
 
+		<script src="js/jquery-2.0.3.min.js"></script>
+		<script src="js/underscore.js"></script>
 
-<link href="css/css.css" rel="stylesheet" />
-<script src="https://leancloud.cn/scripts/lib/av-0.4.7.min.js"></script>
-<script src="js/jquery-2.0.3.min.js"></script>
-<script src="js/underscore.js"></script>
-<script src="js/hiGroup.js"></script>
-<script src="js/config.js"></script>
+		<script src="https://leancloud.cn/scripts/lib/av-0.4.7.min.js"></script>
 
+		<script src="js/hiGroup.js"></script>
+		<script src="js/myNameSpace.js"></script>
 
-<meta name="keywords" content="HiGroup，发布组群活动"/>
-<meta name="description" content="HiGroup，发布组群活动"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<meta name="format-detection" content="telephone=no">
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="HandheldFriendly" content="true">
+		<script src="js/config.js"></script>
 
+		<meta name="keywords" content="HiGroup，发布组群活动" />
+		<meta name="description" content="HiGroup，发布组群活动" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="HandheldFriendly" content="true">
 
+	</head>
 
+	<body>
 
-</head>
+		<!-- Todo App Interface -->
 
-<body>
+		<div id="hiGroup">
 
-<!-- Todo App Interface -->
+			<div id="content">
 
-<div id="hiGroup">
-
-    <div id="content">
-    
-   
-
-   
-    
-    
-    
-    
-    </div>
-    
-   
-    
-    
-    <div id="credits">
-      Powered by <a href="https://cn.avoscloud.com">HiGroup</a> Copyright@xxlhxz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;;" class="onbackToMenu">Back to Menu</a>
-    </div>
-
-</div>
-
-
-
-<!--template-->
-<!--登陆界面-->
-<script type="text/template" id="template-LogIn">
-
-
-  <!--login-->
-    <div id="login">
-	    <form class="login-form">
-        <h1>
-        登陆账号
-        <a href="javascript:;;" class="backToMenu">  <   </a>
-        <a href="javascript:;;" class="goSignUp">注册</a>
-        </h1>
-        
-        
-        <dl>
-        <dd class= "middle">
-        <i class="icon_user"></i>
-        <input type="text" class="input_user underline" id="login-username" placeholder="Username"/>
-        </dd>
-        
-        <dd class= "middle">
-         <i class="icon_password"></i>
-         <input type="password" class="input_password underline" id="login-password" placeholder="Username"/>
-         </dd>
-         
-         <dd class= "middle">
-         <button type="submit" id="btn_log">登&nbsp;&nbsp;陆</button>
-         
-         </dd>
-        
-         </dl>
-         
-         </form>
-	</div>
-
-
-
-</script>
-
-
-<!--注册界面-->
-<script type="text/template" id="template-SignUp">
-
-
-  <!--login-->
-    <div id="signUp">
-    <form class="signup-form">
-	    <h1>
-        注册账号
-        <a href="#" class="backToMenu">  <   </a>
-        <a href="#" class="goLogIn">登陆</a>
-        </h1>
-        
-        <dl>
-        <dd class= "middle">
-        <i class="icon_user"></i><input type="text" name="input_user" class="underline" id="signup-username" placeholder="Username" />
-        </dd>
-        <dd class= "middle">
-         <i class="icon_password"></i><input type="password" name="input_password" class="underline" id="signup-password" placeholder="Username" />
-         </dd>
-         <dd class= "middle">
-         <button id="btn_signUp">注&nbsp;&nbsp;册</button>
-         
-         </dd>
-         </dl>
-    </form>
-	</div>
-
-
-
-</script>
-
-
-
-
-<!-- 提交活动页面 -->
-<script type="text/template" id="template-page_submit_activity">
-    
-	 <div id="div_activity">
-
-    <div id="activity_header">
-		
-		<div id="activity_header_bar">
-		<a href = "#" id="ul_user"><%= AV.User.current().escape("username") %></a><a href="#" class="log-out">Log out</a>
-		</div>
-		
-		<h1>发布活动</h1>
-		
-	</div>
-	
-		<div id="activity_content">
-		
-		  <form id="Activity" action="#">
-			<dl id="ul_activity">
-				<dd>活动名称：<input type="text" id="activityName" class="underline"/></dd>
-				<dd>活动时间：<input type="text" id = "activityTime" class="underline lf"/><i id="i_calendar"></i></dd>
-				<dd>活动地点：<input type="text" id = "activityPlace" class="underline"/></dd>
-				<dd>活动内容说明：<br /><textarea class="txtArea" id = "activityDescription" rows="10" cols="20"></textarea></dd>
 				
-				<dd>付费方式:  
-				<input type="radio" id = "payAA" name = "PayWay" value="1" />
-				 <label for "payAA">AA制</label>&nbsp;&nbsp;
-				 <input type="radio" name = "PayWay" id = "personPay" value="0" />
-				 <label for "personPay"><input type="text" id="whoPay" class="shortline"/> 请客</label>
-	
-				</dd>
-			</dl>
-		  
-		  
-		  <input type="button"  id = "btn_previewActivity" value="预&nbsp;&nbsp;览" />
-		  
-		  
-		  
-		  </form>
-		
-		</div>
-	
-		
-	</div>
-	
-   
-</script>
-
-
-
-
-
-<!-- 提交活动预览页面 -->
-<script type="text/template" id="template-page_preview_activity">
-    
-
-
-        <div id="div_preview_activity">
-		
-	
-		<h1>活动发布预览</h1>
-        <div class = "div_activity_content">
-            <p><strong>1.活动名称</strong>：<span></span></p>
-            <p><strong>2.活动发起人</strong>：<span></span></p>
-            <p><strong>3.活动时间</strong>：<span></span></p>
-            <p><strong>4.活动地点</strong>：<span></span></p>
-            <p><strong>5.活动内容说明</strong>：
-                <div></div>
-            </p>
-            <p><strong>6.付费方式</strong>：<span></span></p>
-        </div>
-		
-	</div>
-	
-		
-		  <div class="groupButton">
-		  <input type="button"  id = "btn_cancelActivity" value="取&nbsp;&nbsp;消" />
-		  
-		  <input type="button"  id = "btn_okActivity" value="确&nbsp认&nbsp发&nbsp布" />
           </div>
-  
+			<div id="credits">
+				Powered by <a href="https://cn.avoscloud.com">HiGroup</a> Copyright@xxlhxz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;;" class="onbackToMenu">Back to Menu</a>
+			</div>
 
-		
+		</div>
 
-	
-		
+		<!--------------------------------template-------------------------->
+			<!--登陆界面-->
+			<script type="text/template" id="template-LogIn">
 
-	
-   
-</script>
+			<!--login-->
+			<div id="login">
+				<form class="login-form">
+					<h1>
+
+        登陆账号
+
+        <a href="javascript:;;" class="backToMenu">  <   </a>
+
+        <a href="javascript:;;" class="goSignUp">注册</a>
+
+        </h1>
+
+					<dl>
+						<dd class="middle">
+							<i class="icon_user"></i>
+							<input type="text" class="input_user underline" id="login-username" placeholder="请输入用户名" />
+						</dd>
+
+						<dd class="middle">
+							<i class="icon_password"></i>
+							<input type="password" class="input_password underline" id="login-password" placeholder="请输入密码" />
+						</dd>
+
+						<dd class="middle">
+							<button type="submit" id="btn_log">登&nbsp;&nbsp;陆</button>
+
+						</dd>
+
+					</dl>
+
+				</form>
+			</div>
+
+			<!--注册界面-->
+			<script type="text/template" id="template-SignUp">
+
+				<!--login-->
+				<div id="signUp">
+					<form class="signup-form">
+						<h1>
+
+                 注册账号
+
+        <a href="#" class="backToMenu">  <   </a>
+
+        <a href="#" class="goLogIn">登陆</a>
+
+        </h1>
+
+						<dl>
+							<dd class="middle">
+								<i class="icon_user"></i>
+								<input type="text" name="input_user" class="underline" id="signup-username" placeholder="请输入用户名" />
+							</dd>
+							<dd class="middle">
+								<i class="icon_password"></i>
+								<input type="password" name="input_password" class="underline" id="signup-password" placeholder="请输入密码" />
+							</dd>
+							<dd class="middle">
+								<button id="btn_signUp">注&nbsp;&nbsp;册</button>
+
+							</dd>
+						</dl>
+					</form>
+				</div>
+
+			</script>
+
+			<!-- 提交活动页面 -->
+			<script type="text/template" id="template-page_submit_activity">
+
+				<div id="div_activity">
+
+					<div id="activity_header">
+
+						<div id="activity_header_bar">
+							<a href="#" id="ul_user">
+								<%=AV.User.current().escape( "username") %>
+							</a><a href="#" class="log-out">Log out</a>
+						</div>
+
+						<h1>发布活动</h1>
+
+					</div>
+
+					<div id="activity_content">
+
+						<form id="Activity" action="#">
+							<dl id="ul_activity">
+								<dd>活动名称：
+									<input type="text" id="activityName" class="underline" />
+								</dd>
+								<dd>活动时间：
+									<input type="text" id="activityTime" class="underline lf" /><i id="i_calendar"></i>
+								</dd>
+								<dd>活动地点：
+									<input type="text" id="activityPlace" class="underline" />
+								</dd>
+								<dd>活动内容说明：
+									<br />
+									<textarea class="txtArea" id="activityDescription" rows="10" cols="20"></textarea>
+								</dd>
+
+								<dd>付费方式:
+									<input type="radio" id="payAA" name="PayWay" value="1" />
+									<label for "payAA">AA制</label>&nbsp;&nbsp;
+									<input type="radio" name="PayWay" id="personPay" value="0" />
+									<label for "personPay">
+										<input type="text" id="whoPay" class="shortline" /> 请客</label>
+
+								</dd>
+							</dl>
+
+							<input type="button" id="btn_previewActivity" value="预&nbsp;&nbsp;览" />
+
+						</form>
+
+					</div>
+
+				</div>
+
+			</script>
+
+			<!-- 提交活动预览页面 -->
+			<script type="text/template" id="template-page_preview_activity">
+
+				<div id="div_preview_activity">
+
+					<h1>活动发布预览</h1>
+					<div class="div_activity_content">
+						<p><strong>1.活动名称</strong>：<span></span>
+						</p>
+						<p><strong>2.活动发起人</strong>：<span></span>
+						</p>
+						<p><strong>3.活动时间</strong>：<span></span>
+						</p>
+						<p><strong>4.活动地点</strong>：<span></span>
+						</p>
+						<p><strong>5.活动内容说明</strong>：
+							<div></div>
+						</p>
+						<p><strong>6.付费方式</strong>：<span></span>
+						</p>
+					</div>
+
+				</div>
+
+				<div class="groupButton">
+					<input type="button" id="btn_cancelActivity" value="取&nbsp;&nbsp;消" />
+
+					<input type="button" id="btn_okActivity" value="确&nbsp认&nbsp发&nbsp布" />
+				</div>
+
+			</script>
+
+			<!--报名页面-->
+			<script type="text/template" id="template-page_apply_activity">
+
+				<div class="activityInfo">
+
+					<div class="user right"><a href="javascript:;;"><i class="user"></i>zhouyu</a>
+					</div>
+					<div class="activityName">挖掘机小伙伴聚餐</div>
+					<dl class="activity_list">
+						<dd><i class="user">user</i><span>周宇世强</span>
+						</dd>
+						<dd><i class="date">date</i><span>2015-3-8</span>
+						</dd>
+						<dd><i class="location">loc</i><span>日昌</span>
+						</dd>
+						<dd><i class="book">book</i><span>活动内容：</span>
+							<div class="activity_textContent">sdfsfasfsjklf楼上的房间时了的房间</div>
+						</dd>
+						<dd><i class="star"></i><span>AA制</span>
+						</dd>
+						<dd class="clc_underline"><i class="group"></i><span>已报名</span>
+
+							<ul>
+								<li><span>1.周宇世强</span><span>昨天</span>
+								</li>
+								<li><span>2.浩森</span><span>1小时前</span>
+								</li>
+							</ul>
+
+						</dd>
+					</dl>
+
+					<div class="activityInfo_opt">
+						<input type="button" id="btn_toSubmit" value="我也要发布" />
+						<input type="button" id="btn_apply" value="报名" />
+					</div>
+
+				</div>
+
+			</script>
+			
+			
+			<!--个人中心页面-->
+			<script type="text/template" id="template-page_userZoom">
+
+				<div class="user_info">
+					<div class="userName">张贺</div>
+					<div class="accountName">账号:&nbsp;&nbsp;kiraplane</div>
+					<i class="go"></i>
+				</div>
+
+				<div class="myActivity">
+
+					<p>我的活动:</p>
+
+					<ul class="myActivityList">
+						<li>
+							<div>2015-3-4</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+
+						<li>
+							<div>2015-3-5</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+
+						<li>
+							<div>2015-3-6</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+						
+						<li>
+							<div>2015-3-7</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+						
+						<li>
+							<div>2015-3-8</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+						
+
+					</ul>
+				</div>
+				
+				
+				<div>
+					<input type="button" id="btn_postActivity" value="直接发布活动" />
+				</div>
+
+			</div>
+			</script>
+
+           	<!--账号信息页面-->
+            <script type="text/template" id="template-page_accountInfo">
+            	<div class="accountInfoTitle">
+					<i class="back"></i>账号信息
+				</div>
+				
+				<div class="accountInfo">
+					<ul>
+						<li>
+							<i class="user"></i><input type="text" class="cGray" readonly="readonly" value="kairplane"/>
+						</li>
+						<li>
+							<i class="userNickname"></i><input type="text" value="张贺" id="input_nickName"/><i class="pen"></i>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<input type="button" id="btn_accountInfo" value="确认" />
+				</div>
+            </script>
 
 
-
-
-
-</body>
+	</body>
 
 </html>

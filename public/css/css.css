@@ -62,6 +62,10 @@ body {
 	text-align:right;
 }
 
+.bigFont{
+	font-size:28px;
+	font-weight: bold;
+}
 
 
 #hiGroup{
@@ -73,7 +77,7 @@ body {
    position:relative;
 }
 
-/*µ×²¿ÊÚÈ¨*/
+/*åº•éƒ¨æˆæƒ*/
 #credits {
 	position:absolute;
 	text-align:center;
@@ -84,7 +88,7 @@ body {
 	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size:12px;
 }
-/**************Ô¤ÀÀÒ³Ãæ******************/
+/**************é¢„è§ˆé¡µé¢******************/
 #div_preview_activity{
 	
 	
@@ -139,7 +143,7 @@ body {
 	margin:10px;
 }
 
-/*************************************µÇÂ½½çÃæÑùÊ½******************************/
+/*************************************ç™»é™†ç•Œé¢æ ·å¼******************************/
 
 .backToMenu{
 
@@ -157,7 +161,7 @@ body {
   height:30px;
   width:50px;
   right:30px;
-  color:#969696
+  color:#969696;
 
 }
 
@@ -170,7 +174,7 @@ body {
 
 }
 
-/*µÇÂ½½çÃæ±êÌâ*/
+/*ç™»é™†ç•Œé¢æ ‡é¢˜*/
 #login h1,#signUp h1{
 	border:1px solid black;
 	width:300px;
@@ -217,9 +221,9 @@ body {
 margin-bottom:40px;
 }
 
-/*ÓÃ»§ÃûÊäÈëicon*/
+/*ç”¨æˆ·åè¾“å…¥icon*/
 .icon_user{
-	content:url(../images/icon_user2.png);
+	content:url(../images/icon_user_30px.png);
 	width:30px;
 	height:30px;
 	//border:1px solid red;
@@ -227,9 +231,9 @@ margin-bottom:40px;
 	position:relative;
 	top:5px;
 }
-/*ÃÜÂëÊäÈëicon*/
+/*å¯†ç è¾“å…¥icon*/
 .icon_password{
-	content:url(../images/icon_lock.png);
+	content:url(../images/icon_lock_30px.png);
 	width:30px;
 	height:30px;
 	display:inline-block;
@@ -237,7 +241,7 @@ margin-bottom:40px;
 	top:5px;
 }
 
-/*µÇÂ½°´Å¥*/
+/*ç™»é™†æŒ‰é’®*/
 #btn_log,#btn_signUp{
   width:250px;
   height:30px;
@@ -250,21 +254,15 @@ margin-bottom:40px;
   border:1px solid black;
 }
 
-/*bodyÍâ¿ò*/
-/*#hiGroup h1{
-	 position:absolute;
-	 width:100%;
-	 top:10px;
-	text-align: center;
-	 font-family:Arial, Helvetica, sans-serif;
-}*/
 
-/*ÏÔÊ¾µ±Ç°ÓÃ»§*/
+
+/*æ˜¾ç¤ºå½“å‰ç”¨æˆ·*/
 #activity_header_bar a{
 	//border:1px solid #CCC;
 	height:40px;
      float:right;
 }
+
 
 #activity_header_bar a:before{
 	content:url(../images/icon_user.png);
@@ -275,7 +273,338 @@ margin-bottom:40px;
 	position:relative;
 }
 
-/*Í·²¿*/
+/***icon***/
+i.user{
+	content: url(../images/icon_user_21px.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+
+}
+
+i.book {
+	content:url(../images/icon_book.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+}
+
+i.location{
+	content:url(../images/icon_location.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+}
+
+i.date{
+	content:url(../images/icon_calendar.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+}
+
+i.star{
+	content:url(../images/icon_star.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+}
+i.group{
+	content:url(../images/icon_peopleGroup.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+}
+
+i.go{
+	content:url(../images/icon_go.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+}
+
+i.userNickname{
+	content:url(../images/icon_peoplePlus_30px.png);
+	width:30px;
+	height:30px;
+	position: relative;
+	top:3px;
+}
+
+i.pen{
+	content:url(../images/icon_pen_30px.png);
+	width:30px;
+	height:30px;
+	position: relative;
+	top:3px;
+	left:-20px;
+}
+
+i.back{
+	content:url(../images/icon_back.png);
+	width:21px;
+	height:21px;
+	position: relative;
+	top:3px;
+}
+/******æŠ¥åé¡µé¢*******/
+.activityInfo div.activityName{
+	border-bottom:1px solid #AEA9A9;
+	width:90%;
+	height:30px;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	padding-left:5px;
+}
+.activity_list{
+	margin-top:10px;
+}
+.activity_list dd{
+	width:90%;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #AEA9A9;
+	padding-left:5px;
+	padding-bottom:10px ;
+}
+
+.activity_list .clc_underline{
+	border-bottom:none;
+}
+
+.activity_list span{
+	margin-left:10px;
+}
+.activityInfo_opt{
+	border:1px solid black;
+	width:90%;
+	height: 48px;
+	position: relative;
+}
+/*æ´»åŠ¨å†…å®¹æ˜¾ç¤º*/
+div.activity_textContent{
+	//border:1px solid red;
+	height:144px;
+	padding:5px;
+}
+
+#btn_toSubmit{
+	border-bottom:1px solid black;
+	outline: none;
+	
+	position:absolute;
+	left:60px;
+	top:15px;
+	
+   border: 0;
+   border-bottom: 1px solid black;
+   background: none;
+
+}
+
+#btn_toSubmit:hover{
+	color: blue;
+}
+
+#btn_apply{
+	width:100px;
+	height:24px;
+    border:1px solid black;
+     background: none;
+	position:absolute;
+	left:200px;
+	top:12px;
+	border-radius: .5em;
+	
+}
+#btn_apply:hover{
+	color:blue;
+	border:1px solid blue;
+}
+
+/********************************************************/
+
+
+/******************ä¸ªäººä¸­å¿ƒ**********************************/
+div.user_info{
+	width:90%;
+	height:64px;
+	border-top:1px solid #AEA9A9;
+	border-bottom:1px solid #AEA9A9;
+	padding-top:5px;
+}
+
+div.userName{
+	padding-top:5px;
+	font-size:20px;
+	font-weight: bold;
+	font-family:arial;
+	margin-bottom: 5px;
+}
+
+div.accountName{
+	padding-top:5px;
+	font-family: "arial";
+	font-size:14px;
+
+}
+
+
+div.activityName{
+	padding-top:5px;
+	font-size:20px;
+	font-weight: bold;
+	font-family:arial;
+}
+
+div.activityLocation{
+	padding-top:5px;
+	font-family: "arial";
+	font-size:14px;
+
+}
+
+div.user_info i.go{
+	position:absolute;
+	left:320px;
+	top:24px;
+}
+
+.myActivity{
+	width:90%;
+	height:400px;
+	border-top:1px solid #CCCCCC;
+	border-bottom:1px solid #CCCCCC;
+	overflow:auto;
+}
+
+
+.myActivity p{
+	font-size: 20px;
+	font-weight: bold;
+	margin-top:10px;
+	margin-bottom: 10px;
+	
+}
+
+ul.myActivityList li{
+	position:relative;
+	margin-bottom: 10px;
+	padding-left: 5px;
+}
+
+ul.myActivityList li div.view{
+	border:1px solid black;
+	padding:2px;
+}
+
+ul.myActivityList div.view i.go{
+	position:absolute;
+	left:310px;
+	top:34px;
+}
+
+#btn_postActivity{
+	margin-top:10px;
+	background:#CCCCCC;
+	width:250px;
+	height: 48px;
+	color: white;
+    width:90%;
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+}
+/*********************************************/
+
+/***********è´¦å·ä¿¡æ¯****************/
+div.accountInfoTitle{
+	border:1px solid black;
+	width:100%;
+	height:36px;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	padding-top:12px;
+	position:relative;
+	margin-top: 0px;
+
+}
+div.accountInfoTitle i.back{
+	position:absolute;
+	left:5px;
+	top:12px;
+	
+}
+
+div.accountInfo{
+	//border:1px solid red;
+	width:100%;
+	height:196px;
+	margin-top:100px;
+	margin-bottom: 10px;
+	
+}
+
+div.accountInfo ul li{
+	
+	margin-bottom: 10px;
+	margin-left:45px;
+	margin-top:20px;
+	
+}
+
+div.accountInfo ul li input{
+	border:0;
+	background: none;
+	border-bottom: 1px solid black;
+	width:200px;
+	margin-left:20px;
+	text-decoration: none;
+	outline: none;
+	padding-left:20px;
+	font-size: 20px;
+	color:black;
+	
+}
+
+#btn_accountInfo{
+margin-top:20px;
+margin-left:15px;
+	background:#CCCCCC;
+	width:250px;
+	height: 48px;
+	color: white;
+    width:90%;
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*æ— æ•ˆè¾“å…¥ æ–‡å­—é¢œè‰²*/
+div.accountInfo .cGray{
+	color:#AEA9A9;
+}
+
+div.accountInfo i.user{
+	width:30px;
+	height: 30px;
+	//zoom:0.8;
+}
+
+div.accountInfo i.pen{
+	
+}
+
+/*å¤´éƒ¨*/
 #activity_header{
 width:100%;
 height:40px;
@@ -291,7 +620,7 @@ margin-bottom:10px;
 	padding-left:85px;
 }
 
-/*³¤ÏÂ»¬ÏßÑùÊ½*/
+/*é•¿ä¸‹æ»‘çº¿æ ·å¼*/
 .underline{
   width:250px;
   border-left:0;
@@ -302,7 +631,7 @@ margin-bottom:10px;
   outline:none;
   padding-left:10px;
 }
-/*¶ÌÊäÈëÏß*/
+/*çŸ­è¾“å…¥çº¿*/
 .shortline{
   width:60px;
   border-left:0;
@@ -318,7 +647,7 @@ margin-bottom:10px;
 margin-bottom:25px;
 
 }
-/*´ó¶ÎÎÄ×ÖÊäÈë¿ò*/
+/*å¤§æ®µæ–‡å­—è¾“å…¥æ¡†*/
 .txtArea{
 	background:transparent;
 
@@ -328,7 +657,7 @@ margin-bottom:25px;
 	left: 4px;
 	top: 294px;
 }
-/*»î¶¯·¢²¼Ô¤ÀÀ°´Å¥*/
+/*æ´»åŠ¨å‘å¸ƒé¢„è§ˆæŒ‰é’®*/
 #btn_previewActivity{
 width:100px;
 height:40px;
@@ -342,7 +671,7 @@ margin-top:20px;
 border:1px solid black;	
 }
 
-/*ÈÕÀúÍ¼±ê*/
+/*æ—¥å†å›¾æ ‡*/
 #i_calendar{
 background:url(../images/icon_calendar.png) no-repeat;
 position:absolute;
@@ -357,7 +686,7 @@ display:block;
 	border:1px solid #733132;
 }
 
-//°´Å¥°´ÏÂ
+/*æŒ‰é’®æŒ‰ä¸‹*/
 .pressDown{
 position:relative;
 left:1px;
@@ -366,7 +695,11 @@ border:1px solid red;
 }
 
 
-/*Ò³½Å*/
+/*********æ´»åŠ¨æŠ¥åé¡µ***************/
+
+
+
+/*é¡µè„š*/
 #footer {
     color: #777;
     padding: 0 15px;
