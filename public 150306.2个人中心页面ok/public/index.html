@@ -34,10 +34,11 @@
 		<div id="hiGroup">
 
 			<div id="content">
-			</div>
+
+				
 
 			<div id="credits">
-				Powered by <a href="https://cn.avoscloud.com">HiGroup</a> Copyright@xxlhxz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015/3/7
+				Powered by <a href="https://cn.avoscloud.com">HiGroup</a> Copyright@xxlhxz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;;" class="onbackToMenu">Back to Menu</a>
 			</div>
 
 		</div>
@@ -49,10 +50,15 @@
 			<!--login-->
 			<div id="login">
 				<form class="login-form">
-						<h1>
-        				登陆账号
-        				<a href="javascript:;;" class="goSignUp">注册</a>
-        				</h1>
+					<h1>
+
+        登陆账号
+
+        <a href="javascript:;;" class="backToMenu">  <   </a>
+
+        <a href="javascript:;;" class="goSignUp">注册</a>
+
+        </h1>
 
 					<dl>
 						<dd class="middle">
@@ -82,24 +88,24 @@
 				<div id="signUp">
 					<form class="signup-form">
 						<h1>
-                                                           注册账号
-                             <a href="#" class="goLogIn">登陆</a>
-                       </h1>
+
+                 注册账号
+
+        <a href="#" class="backToMenu">  <   </a>
+
+        <a href="#" class="goLogIn">登陆</a>
+
+        </h1>
 
 						<dl>
 							<dd class="middle">
 								<i class="icon_user"></i>
-								<input type="text" name="input_user" class="underline" id="signup-username" placeholder="用户名可以任意填写,登陆时用" />
+								<input type="text" name="input_user" class="underline" id="signup-username" placeholder="请输入用户名" />
 							</dd>
 							<dd class="middle">
 								<i class="icon_password"></i>
-								<input type="password" name="input_password" class="underline" id="signup-password" placeholder="密码6-14位,建议数字字母符号组合" />
+								<input type="password" name="input_password" class="underline" id="signup-password" placeholder="请输入密码" />
 							</dd>
-							<dd class="middle">
-								<i class="userNickname"></i>
-								<input type="text" name="input_nickName" class="underline" id="signup-password" placeholder="活动报名时显示昵称，建议用真实姓名" />
-							</dd>
-							
 							<dd class="middle">
 								<button id="btn_signUp">注&nbsp;&nbsp;册</button>
 
@@ -119,8 +125,8 @@
 
 						<div id="activity_header_bar">
 							<a href="#" id="ul_user">
-								<%=AV.User.current().escape("username") %>
-							</a>
+								<%=AV.User.current().escape( "username") %>
+							</a><a href="#" class="log-out">Log out</a>
 						</div>
 
 						<h1>发布活动</h1>
@@ -202,7 +208,7 @@
 
 				<div class="activityInfo">
 
-					<div class="user right"><a href="javascript:;;"><i class="user"></i><%=AV.User.current().escape("username")%></a>
+					<div class="user right"><a href="javascript:;;"><i class="user"></i>zhouyu</a>
 					</div>
 					<div class="activityName">挖掘机小伙伴聚餐</div>
 					<dl class="activity_list">
@@ -230,21 +236,21 @@
 					</dl>
 
 					<div class="activityInfo_opt">
-						<i class="back"></i>
-						<input type="button" class="btn_toSubmit" value="我也要发布" />
-						<input type="button" class="btn_apply" value="报名" />
+						<input type="button" id="btn_toSubmit" value="我也要发布" />
+						<input type="button" id="btn_apply" value="报名" />
 					</div>
 
 				</div>
 
 			</script>
-
-			<!--个人中心页面-->
+			
+			
+	<!--个人中心页面-->
 			<script type="text/template" id="template-page_userZoom">
-             
+
 				<div class="user_info">
-					<div class="userName"><%=AV.User.current().escape("nickName")==""?AV.User.current().escape("username"):AV.User.current().escape("nickName") %></div>
-					<div class="accountName">账号:&nbsp;&nbsp;<%=AV.User.current().escape("username") %></div>
+					<div class="userName">张贺</div>
+					<div class="accountName">账号:&nbsp;&nbsp;kiraplane</div>
 					<i class="go"></i>
 				</div>
 
@@ -253,56 +259,61 @@
 					<p>我的活动:</p>
 
 					<ul class="myActivityList">
+						<li>
+							<div>2015-3-4</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+
+						<li>
+							<div>2015-3-5</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+
+						<li>
+							<div>2015-3-6</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+						
+						<li>
+							<div>2015-3-7</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+						
+						<li>
+							<div>2015-3-8</div>
+							<div class="view">
+								<div class="activityName">挖掘机小伙伴聚餐</div>
+								<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;五道口日昌餐厅</div>
+								<i class="go"></i>
+							</div>
+						</li>
+						
 
 					</ul>
 				</div>
-
+				
+				
 				<div>
-					<input type="button" id="btn_postActivity" value="发布活动" />
+					<input type="button" id="btn_postActivity" value="直接发布活动" />
 				</div>
 
-				</div>
-			</script>
-
-			<!-- 我的活动子页面-->
-			<script type="text/template" id="template-activityItem">
-				<div>
-					<%=date%>
-				</div>
-				<div class="view">
-					<div class="activityName">
-						<%=activityName%>
-					</div>
-					<div class="activityLocation"><i class="location"></i>&nbsp;&nbsp;
-						<%=location%>
-					</div>
-					<i class="go"></i>
-				</div>
-
-			</script>
-
-			<!--账号信息页面-->
-			<script type="text/template" id="template-page_accountInfo">
-				<div class="accountInfoTitle">
-					<i class="back"></i>账号信息
-				</div>
-
-				<div class="accountInfo">
-					<ul>
-						<li>
-							<i class="user"></i>
-							<input type="text" class="cGray" readonly="readonly" value="<%=AV.User.current().escape("username")%>" />
-						</li>
-						<li>
-							<i class="userNickname"></i>
-							<input type="text" value="<%=AV.User.current().escape('nickName')==''?AV.User.current().escape('username'):AV.User.current().escape('nickName')%>" id="input_nickName" /><i class="pen"></i>
-						</li>
-					</ul>
-				</div>
-				<div>
-					<input type="button" id="btn_okAccountInfo" value="确       认" />
-					<input type="button" id="btn_exitAccount" value="退出账号" />
-				</div>
+			</div>
 			</script>
 
 	</body>

@@ -145,7 +145,13 @@ body {
 
 /*************************************登陆界面样式******************************/
 
+.backToMenu{
 
+  position:absolute;
+  left:10px;
+  top:10px;
+
+}
 
 .goSignUp,.goLogIn{
   color:black;
@@ -324,23 +330,6 @@ i.go{
 	top:3px;
 }
 
-i.userNickname{
-	content:url(../images/icon_peoplePlus_30px.png);
-	width:30px;
-	height:30px;
-	position: relative;
-	top:3px;
-}
-
-i.pen{
-	content:url(../images/icon_pen_30px.png);
-	width:30px;
-	height:30px;
-	position: relative;
-	top:3px;
-	left:-20px;
-}
-
 i.back{
 	content:url(../images/icon_back.png);
 	width:21px;
@@ -349,13 +338,6 @@ i.back{
 	top:3px;
 }
 /******报名页面*******/
-
-div.activityInfo_opt i.back{
-	left:5px;
-	top:15px;
-	position:relative;
-}
-
 .activityInfo div.activityName{
 	border-bottom:1px solid #AEA9A9;
 	width:90%;
@@ -397,7 +379,7 @@ div.activity_textContent{
 	padding:5px;
 }
 
-div.activityInfo_opt .btn_toSubmit{
+#btn_toSubmit{
 	border-bottom:1px solid black;
 	outline: none;
 	
@@ -411,11 +393,11 @@ div.activityInfo_opt .btn_toSubmit{
 
 }
 
-div.activityInfo_opt .btn_toSubmit:hover{
+#btn_toSubmit:hover{
 	color: blue;
 }
 
-div.activityInfo_opt .btn_apply{
+#btn_apply{
 	width:100px;
 	height:24px;
     border:1px solid black;
@@ -426,7 +408,7 @@ div.activityInfo_opt .btn_apply{
 	border-radius: .5em;
 	
 }
-div.activityInfo_opt .btn_apply:hover{
+#btn_apply:hover{
 	color:blue;
 	border:1px solid blue;
 }
@@ -524,88 +506,6 @@ ul.myActivityList div.view i.go{
     font-size: 16px;
     font-weight: bold;
 }
-/*********************************************/
-
-/***********账号信息****************/
-div.accountInfoTitle{
-	border:1px solid black;
-	width:100%;
-	height:36px;
-	font-size: 24px;
-	font-weight: bold;
-	text-align: center;
-	padding-top:12px;
-	position:relative;
-	margin-top: 0px;
-
-}
-div.accountInfoTitle i.back{
-	position:absolute;
-	left:5px;
-	top:12px;
-	
-}
-
-div.accountInfo{
-	//border:1px solid red;
-	width:100%;
-	height:196px;
-	margin-top:100px;
-	margin-bottom: 10px;
-	
-}
-
-div.accountInfo ul li{
-	
-	margin-bottom: 10px;
-	margin-left:45px;
-	margin-top:20px;
-	
-}
-
-div.accountInfo ul li input{
-	border:0;
-	background: none;
-	border-bottom: 1px solid black;
-	width:200px;
-	margin-left:20px;
-	text-decoration: none;
-	outline: none;
-	padding-left:20px;
-	font-size: 20px;
-	color:black;
-	
-}
-
-#btn_okAccountInfo,#btn_exitAccount{
-margin-top:20px;
-margin-left:45px;
-	background:#CCCCCC;
-	width:250px;
-	height: 32px;
-	color: white;
-    width:300px;
-    //position: relative;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-
-/*无效输入 文字颜色*/
-div.accountInfo .cGray{
-	color:#AEA9A9;
-}
-
-div.accountInfo i.user{
-	width:30px;
-	height: 30px;
-	//zoom:0.8;
-}
-
-div.accountInfo i.pen{
-	
-}
-
 /*头部*/
 #activity_header{
 width:100%;
@@ -632,7 +532,6 @@ margin-bottom:10px;
   background:transparent;
   outline:none;
   padding-left:10px;
-  padding-bottom: 3px;
 }
 /*短输入线*/
 .shortline{
