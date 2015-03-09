@@ -84,7 +84,7 @@ $(function() {
 			this.render();
 		},
 
-		signUp: function(e) {
+		signUp: function() {
 			var self = this;
 			var username = this.$("#signup-username").val();
 			var password = this.$("#signup-password").val();
@@ -134,7 +134,17 @@ $(function() {
 		el: "#content",
 		template: _.template($("#template-page_submit_activity").html()),
 		initialize: function() {
-
+            
+            //获取对象
+            
+            var oActivityPlace = $("#activityPlace");
+            var oActivityTime = $("#activityTime");
+            var oActivityDescription = $("#activityDescription");
+            var oAAPay=$("#payAA");
+            var oWhoPay=$("#whoPay");
+            //var oUserName = $("#ul_user");
+            
+            
 			this.render();
 			//init_SubmitActivity();
 		},
@@ -142,8 +152,6 @@ $(function() {
 		events: {
 			"click #i_calendar": "select_date",
 			"click #ul_user": "enter_user",
-
-
 			"click #btn_previewActivity": "preview"
 		},
 
@@ -164,21 +172,41 @@ $(function() {
 			
 			
 		},
+        
 		
-
 
 		//点击 确认 按钮，提交数据
 		preview: function() {
 
 			var self = this;
+            
+            //获取对象
+            var oActivityName = $("#activityName");
+            var oActivityPlace = $("#activityPlace");
+            var oActivityTime = $("#activityTime");
+            var oActivityDescription = $("#activityDescription");
+            var oPayWay = $("input[name='PayWay']");
+            var oWhoPay=$("#whoPay");
+            //var oUserName = $("#ul_user");	
+            
+            newActivity.activityName=oActivityName.val();
+            newActivity.activityLocation=oActivityPlace.val();
+            newActivity.activityDate=oActivityTime.val();
+            newActivity.activityContent=oActivityDescription.val();
+            var iPayWay = $("input[name='PayWay']:checked").val();
+            if(iPayWay==1){
+                newActivity.activityPaystyle="AA";
+            }
+            else{
+                newActivity.activityPaystyle=oWhoPay.val();
+            }
+            
+            
 			new ActivityPreviewView();
 			self.undelegateEvents();
 			delete self;
 
 		},
-
-
-
 
 	});
 	//活动发布预览
@@ -190,9 +218,38 @@ $(function() {
 		initialize: function() {
 
 			this.render();
+            var aSpans = $("#div_preview_activity .div_activity_content span");
+              var oActivityName=aSpans[0];
+              var oActivityUserName=aSpans[1];
+              var oActivityTime=aSpans[2];
+              var oActivityPlace=aSpans[3];
+              var oActivityWhoPay=aSpans[4];
+              var oActivityDescription = $("#div_preview_activity .div_activity_content div")[0];
+
+              $(oActivityName).html(newActivity.activityName);
+              $(oActivityTime).html(newActivity.activityDate);
+              $(oActivityUserName).html(AV.User.current().get("username"));
+              $(oActivityPlace).html(newActivity.activityLocation);
+
+              //alert(JSON.stringify(mv.object.user.PayWay));
+
+              var sPay="";
+              if(newActivity.activityPaystyle=="AA"){
+                  sPay="[AA制]";
+              }
+              else{
+                  sPay="["+newActivity.activityPaystyle+"]"+"请客";
+              }
+
+
+              $(oActivityWhoPay).html();
+
+              $(oActivityDescription).html(newActivity.activityContent);
 		},
 
 		events: {
+            "click #btn_cancelActivity": "cancelactivity",
+            "click #btn_okActivity": "okactivity"
 
 		},
 
@@ -200,7 +257,26 @@ $(function() {
 			this.$el.html(this.template); //加载活动发布界面
 			this.delegateEvents();
 		},
-
+        
+        cancelactivity:function(){
+            var self = this;
+			new ActivitySubmitView();
+			self.undelegateEvents();
+			delete self;
+        },
+        
+        okactivity:function(){
+            
+            listActivity.create({
+                activityName: newActivity.activityName,
+                activityContent:   newActivity.activityContent,
+                activityPaystyle:    newActivity.activityPaystyle,
+                activityDate:    newActivity.activityDate,
+                activityLocation:    newActivity.activityLocation,                
+                user:    AV.User.current(),
+                ACL:     new AV.ACL(AV.User.current())
+              });
+        }
 
 	});
 	//活动报名页
@@ -255,9 +331,12 @@ $(function() {
   var Activity = AV.Object.extend("Activity", {
     // Default attributes for the activity.
     defaults: {
-    	date:"2015-3-4",
-    	activityName:"挖掘机小伙伴聚餐",
-        location: "五道口日昌餐厅",
+    	activityDate:"empty date",
+    	activityName:"empty activity name",
+        activityLocation: "empty location",
+        activityContent: "empty content",
+        activityState: true,
+        activityPaystyle: "AA"
     },
 
     // 确保每个activity都有 属性`
@@ -271,11 +350,25 @@ $(function() {
       if (!this.get("location")) {
         this.set({"location": this.defaults.location});
       }
-      this.save();
-    },
+      //this.save();
+    }
 
     
   });
+    
+    
+    var UserInfo=AV.Object.extend("UserInfo",{
+        // Default attributes for the activity.
+        defaults: {
+            nickName:""
+        },
+
+        // 确保每个activity都有 属性`
+        initialize: function() {
+          
+        }
+    
+    });
 
    
   // Activity Collection
@@ -338,8 +431,64 @@ $(function() {
 		initialize: function() {
  
  			this.$el.html(this.template); //加载界面
- 			this.activities = new ActivityList(); //活动集合
- 			_.bindAll(this,"addOne","addAll");
+            _.bindAll(this,"addOne","addAll","updateNickname");
+            
+ 			this.activities = new ActivityList; //活动集合
+            
+            this.activities.query=new AV.Query(Activity);
+            this.activities.query.equalTo("user", AV.User.current());
+
+            this.activities.bind('reset',   this.addAll);
+            this.activities.fetch();
+
+            ouserInfo.query=new AV.Query(UserInfo);
+            ouserInfo.query.equalTo("user", AV.User.current());
+            ouserInfo.bind('set',this.updateNickname);
+            ouserInfo.query.find({
+              success: function(results) {
+                  if(results.length==0)
+                  {
+                    ouserInfo.set("nickName",AV.User.current().get("username"));
+                    ouserInfo.save({    
+                    user:    AV.User.current(),
+                    ACL:     new AV.ACL(AV.User.current())
+                    }, {
+                    success: function(ouserInfo) {
+                    // The object was saved successfully.
+                    },
+                    error: function(ouserInfo, error) {
+                    // The save failed.
+                    // error is a AV.Error with an error code and description.
+                    }}
+                    );
+                      
+                  }
+                  else{
+                    var object = results[0];
+                    ouserInfo.set("nickName",object.get('nickName'));
+                    
+                  }
+              },
+              error: function(error){
+//                    ouserInfo.set("nickName",AV.User.current().get("username"));
+//                    ouserInfo.save({    
+//                    user:    AV.User.current(),
+//                    ACL:     new AV.ACL(AV.User.current())
+//                    }, {
+//                    success: function(ouserInfo) {
+//                    // The object was saved successfully.
+//                    },
+//                    error: function(ouserInfo, error) {
+//                    // The save failed.
+//                    // error is a AV.Error with an error code and description.
+//                    }}
+//                );
+              }
+              
+            });
+            
+            
+ 			
 			this.render();
 		},
 
@@ -362,6 +511,10 @@ $(function() {
         	self.undelegateEvents();
 			delete self;
         },
+        
+        updateNickname:function(userinfo){
+            $(".userName").html(userinfo.get("nickName"));
+        },
 
 
          
@@ -370,18 +523,18 @@ $(function() {
 	
 	
       
-      var tempItem = new Activity({date:"2015-3-7",
-    	activityName:"挖掘机小伙伴聚餐",
-        location: "五道口日昌餐厅",});
-	
-	      var tempItem2 = new Activity({date:"2015-3-8",
-    	activityName:"挖掘机小伙伴聚餐",
-        location: "五道口日昌餐厅",});
-	         this.activities.add(tempItem);
-	         this.activities.add(tempItem2);
+//      var tempItem = new Activity({date:"2015-3-7",
+//    	activityName:"挖掘机小伙伴聚餐",
+//        location: "五道口日昌餐厅",});
+//	
+//	      var tempItem2 = new Activity({date:"2015-3-8",
+//    	activityName:"挖掘机小伙伴聚餐",
+//        location: "五道口日昌餐厅",});
+//	         this.activities.add(tempItem);
+//	         this.activities.add(tempItem2);
 //	         this.activities.add(tempItem);
 //	         this.activities.add(tempItem);
-	         
+//	        this.updateNickname();
 			this.addAll(this.activities);
 			this.delegateEvents();
 		},
@@ -460,17 +613,93 @@ $(function() {
         	var _nickName = $("#input_nickName").val();
         	var oUser = AV.User.current();
         	//alert(oUser.escape("username"));
+        	
         	oUser.set("nickName",_nickName);
-        	oUser.save(null,{
-        		success:function(){
-        			alert("设置成功！");
-        		},
-        		error:function(user,error){
-        			//alert("wrong");
-        			alert("出错了！      "+error.message);
-        		}
-        		
-        	});
+            
+            var ouserInfo=new UserInfo();
+            ouserInfo.query=new AV.Query(UserInfo);
+            ouserInfo.query.equalTo("user", AV.User.current());
+            ouserInfo.query.find({
+              success: function(results) {
+                //alert("Successfully retrieved " + results.length + " scores.");
+                // Do something with the returned AV.Object values
+                //for (var i = 0; i < results.length; i++) {
+                  if(results.length<1)
+                  {
+                      ouserInfo.set("nickName",_nickName);
+                    ouserInfo.save({    
+                    user:    AV.User.current(),
+                    ACL:     new AV.ACL(AV.User.current())
+                    }, {
+                    success: function(ouserInfo) {
+                    // The object was saved successfully.
+                    },
+                    error: function(ouserInfo, error) {
+                    // The save failed.
+                    // error is a AV.Error with an error code and description.
+                    }}
+                    );
+                      
+                  }
+                  else{
+                    ouserInfo.set("nickName",_nickName);
+                      ouserInfo.save({    
+                    user:    AV.User.current(),
+                    ACL:     new AV.ACL(AV.User.current())
+                    }, {
+                    success: function(ouserInfo) {
+                    // The object was saved successfully.
+                    },
+                    error: function(ouserInfo, error) {
+                    // The save failed.
+                    // error is a AV.Error with an error code and description.
+                    }}
+                    );
+                  }
+              },
+              error: function(error){
+                    ouserInfo.set("nickName",AV.User.current().get("username"));
+                    ouserInfo.save({    
+                    user:    AV.User.current(),
+                    ACL:     new AV.ACL(AV.User.current())
+                    }, {
+                    success: function(ouserInfo) {
+                    // The object was saved successfully.
+                    },
+                    error: function(ouserInfo, error) {
+                    // The save failed.
+                    // error is a AV.Error with an error code and description.
+                    }}
+                );
+              }
+              
+            });
+            
+            
+//            var user = AV.User.logIn("3", "3", {
+//              success: function(user) {
+//                user.set("username", "my_new_username");  // attempt to change username
+//                user.save(null, {
+//                  success: function(user) {
+//                    // This succeeds, since the user was authenticated on the device
+//
+//                    // Get the user from a non-authenticated method
+//                    var query = new AV.Query(AV.User);
+//                    query.get(user.objectId, {
+//                      success: function(userAgain) {
+//                        userAgain.set("username", "another_username");
+//                        userAgain.save(null, {
+//                          error: function(userAgain, error) {
+//                            // This will error, since the AV.User is not authenticated
+//                          }
+//                        });
+//                      }
+//                    });
+//                  }
+//                });
+//              }
+//            });
+
         	
   
         	
@@ -502,7 +731,9 @@ $(function() {
 
 		/*************************主程序运行*************************************/
 
-
+    var newActivity=new Activity;
+    var listActivity= new ActivityList;
+    var ouserInfo=new UserInfo();
 	//加载首页页面
 
 	//加载执行登陆页面
