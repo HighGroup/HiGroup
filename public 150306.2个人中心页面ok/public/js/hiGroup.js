@@ -285,7 +285,7 @@ $(function() {
 	//加载首页页面
 
 	//加载执行登陆页面
-	//new AppView;
+	new AppView;
 	//new LogInView();
 	//new SignUpView();
 	//new ActivitySubmitView();

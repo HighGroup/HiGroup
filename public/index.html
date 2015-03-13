@@ -146,7 +146,7 @@
 								</dd>
 
 								<dd>付费方式:
-									<input type="radio" id="payAA" name="PayWay" value="1" />
+									<input type="radio" id="payAA" name="PayWay" value="1" checked="checked"/>
 									<label for "payAA">AA制</label>&nbsp;&nbsp;
 									<input type="radio" name="PayWay" id="personPay" value="0" />
 									<label for "personPay">
@@ -204,26 +204,23 @@
 
 					<div class="user right"><a href="javascript:;;"><i class="user"></i><%=AV.User.current().escape("username")%></a>
 					</div>
-					<div class="activityName">挖掘机小伙伴聚餐</div>
+					<div class="activityName"><%=activityName%></div>
 					<dl class="activity_list">
-						<dd><i class="user">user</i><span>周宇世强</span>
+						<dd><i class="user">user</i><span><%=activityName%></span>
 						</dd>
-						<dd><i class="date">date</i><span>2015-3-8</span>
+						<dd><i class="date">date</i><span><%=activityDate%></span>
 						</dd>
-						<dd><i class="location">loc</i><span>日昌</span>
+						<dd><i class="location">loc</i><span><%=activityLocation%></span>
 						</dd>
 						<dd><i class="book">book</i><span>活动内容：</span>
-							<div class="activity_textContent">sdfsfasfsjklf楼上的房间时了的房间</div>
+							<div class="activity_textContent"><%=activityContent%></div>
 						</dd>
-						<dd><i class="star"></i><span>AA制</span>
+						<dd><i class="star"></i><span><%=activityPaystyle%></span>
 						</dd>
 						<dd class="clc_underline"><i class="group"></i><span>已报名</span>
 
 							<ul>
-								<li><span>1.周宇世强</span><span>昨天</span>
-								</li>
-								<li><span>2.浩森</span><span>1小时前</span>
-								</li>
+								
 							</ul>
 
 						</dd>
@@ -295,7 +292,7 @@
 						</li>
 						<li>
 							<i class="userNickname"></i>
-							<input type="text" value="<%=AV.User.current().escape('nickName')==''?AV.User.current().escape('username'):AV.User.current().escape('nickName')%>" id="input_nickName" /><i class="pen"></i>
+							<input type="text" class="input_nickName" value="<%=AV.User.current().escape('nickName')==''?AV.User.current().escape('username'):AV.User.current().escape('nickName')%>" id="input_nickName" /><i class="pen"></i>
 						</li>
 					</ul>
 				</div>
