@@ -88,6 +88,7 @@ $(function() {
 			var self = this;
 			var username = this.$("#signup-username").val();
 			var password = this.$("#signup-password").val();
+            var nickname = this.$("#signup-nickname").val();
 
 			// 注册
 			AV.User.signUp(username, password, {
@@ -95,6 +96,24 @@ $(function() {
 			}, {
 				success: function(user) {
 					//mv.control.runPage(mv.page.submitActivity);
+                    oUserInfo=new UserInfo();
+                    oUserInfo.set("nickName",nickname);
+                    oUserInfo.ACL=new AV.ACL(AV.User.current());
+                    oUserInfo.ACL.setPublicReadAccess(true);
+                    oUserInfo.save({    
+                        user:    user,
+                        ACL:     oUserInfo.ACL
+                        }, {
+                        success: function(oUserInfo) {
+                        // The object was saved successfully.
+                           // alert(JSON.stringify(oUserInfo));
+                        },
+                        error: function(oUserInfo, error) {
+                            // The save failed.
+                            // error is a AV.Error with an error code and description.
+                            alert(error.message);
+                        }}
+                    );
 					new UserZoomView();
 					self.undelegateEvents();
 					delete self;
@@ -107,6 +126,8 @@ $(function() {
 					self.$(".signup-form button").removeAttr("disabled");
 				}
 			});
+            
+            
 
 			this.$(".signup-form button").attr("disabled", "disabled");
 
@@ -144,7 +165,7 @@ $(function() {
             var oWhoPay=$("#whoPay");
             //var oUserName = $("#ul_user");
             
-            
+            AV.history.navigate("");
 			this.render();
 			//init_SubmitActivity();
 		},
@@ -276,7 +297,8 @@ $(function() {
         },
         
         okactivity:function(){
-            
+            var listActivityACL=new AV.ACL(AV.User.current());
+            listActivityACL.setPublicReadAccess(true);
             listActivity.create({
                 activityName: newActivity.activityName,
                 activityContent:   newActivity.activityContent,
@@ -284,14 +306,16 @@ $(function() {
                 activityDate:    newActivity.activityDate,
                 activityLocation:    newActivity.activityLocation,                
                 user:    AV.User.current(),
-                ACL:     new AV.ACL(AV.User.current())
+                ACL:     listActivityACL
               },{
                 success:function(model){
                     var oParticipatedUserOfActivity=new ParticipatedUserOfActivity();
+                    oParticipatedUserOfActivity.ACL=new AV.ACL(AV.User.current());
+                    oParticipatedUserOfActivity.ACL.setPublicReadAccess(true);
                     oParticipatedUserOfActivity.save({
                         activity:   model,
                         user:       AV.User.current(),
-                        ACL:        new AV.ACL(AV.User.current())
+                        ACL:        oParticipatedUserOfActivity.ACL
                     },{
                         success:function(oParticipatedUserOfActivity)
                         {
@@ -330,12 +354,15 @@ $(function() {
             this.render();
             var aSpans = $("dl.activity_list span");
             var sPay="";
+            newActivity.activityPaystyle=newActivity.get("activityPaystyle");
+            
             if(newActivity.activityPaystyle=="AA"){
                 sPay="[AA制]";
             }
             else{
                 sPay="["+newActivity.activityPaystyle+"]"+"请客";
             }
+            
             $(aSpans[4]).html(sPay);
             
             var list_participate=$("dl.activity_list ul");
@@ -348,15 +375,18 @@ $(function() {
             oPUOA.query.find({
                 success:function(results){
                     //alert(JSON.stringify(results));
+                    this.iretor=0;
                     for(var i=0;i<results.length;i++){
                         var oUserInfo=new UserInfo();
                         oUserInfo.query=new AV.Query(UserInfo);
                         oUserInfo.query.equalTo("user",results[i].get("user"));
-                        alert(results[i].getCreatedAt().toDateString());
+                        //alert(results[i].getCreatedAt().toDateString());
                         this.datestring=results[i].getCreatedAt().toDateString();
+                        
                         oUserInfo.query.first({
                             success:function(oUserInfo){
-                                $(list_participate).append("<li><span>"+i+"."+oUserInfo.get("nickName")+"</span><span>"+this.datestring+"</span></li>");
+                                this.iretor++;
+                                $(list_participate).append("<li><span>"+this.iretor+"."+oUserInfo.get("nickName")+"</span><span>"+this.datestring+"</span></li>");
                             },
                             error:function(error){
                                 alert(error.message);
@@ -369,6 +399,8 @@ $(function() {
                     alert(error.message);
                 }
             });
+            
+            AV.history.navigate("#ActivityApply/"+this.model.id);
             
             //$(list_participate).html("");
             //$(list_participate).append("<li><span>1.周宇世强</span><span>昨天</span></li>");
@@ -401,30 +433,35 @@ $(function() {
             var oPUOA=new ParticipatedUserOfActivity();
             
             oPUOA.query=new AV.Query(ParticipatedUserOfActivity);
-            
+            //alert(JSON.stringify(this.model));
             oPUOA.query.equalTo("activity",this.model);
             oPUOA.query.equalTo("user",AV.User.current());
-            
+            newActivity=this.model;
             oPUOA.query.first({
                 success:function(oPUOA){
-                    alert(JSON.stringify(oPUOA));
+                    
+                    //alert(JSON.stringify(this.model));
                     if(oPUOA==null){
                         oPUOA=new ParticipatedUserOfActivity();
+                        oPUOA.ACL=new AV.ACL(AV.User.current());
+                        oPUOA.ACL.setPublicReadAccess(true);
+//                        alert(JSON.stringify(newActivity));
                         oPUOA.save({
-                            activity:   this.model,
+                            activity:   newActivity,
                             user:       AV.User.current(),
-                            ACL:        new AV.ACL(AV.User.current())
+                            ACL:        oPUOA.ACL
                         },{
                             success:function(oPUOA)
                             {
-//                              alert(JSON.stringify(oParticipatedUserOfActivity));
+                              
+                                alert("报名成功");
                             },
                             error:function(oParticipatedUserOfActivity,err)
                             {
                                 alert(error.message);
                             }
                         });
-                        alert("报名成功");
+                        
                     }
                     else{
                         alert("你已经报名过了");
@@ -435,8 +472,7 @@ $(function() {
                 }
             });
             
-            
-			//alert("报名成功！");
+			
 		},
 		
 
@@ -588,7 +624,7 @@ $(function() {
             
  			this.activities = new ActivityList; //活动集合
             
-            this.activities.query=new AV.Query(Activity);
+            this.activities.query=new AV.Query(ParticipatedUserOfActivity);
             this.activities.query.equalTo("user", AV.User.current());
 
             this.activities.bind('reset',   this.addAll);
@@ -605,9 +641,11 @@ $(function() {
                     else{
                         oUserInfo=new UserInfo();
                         oUserInfo.set("nickName",AV.User.current().get("username"));
+                        oUserInfo.ACL=new AV.ACL(AV.User.current());
+                        oUserInfo.ACL.setPublicReadAccess(true);
                         oUserInfo.save({    
                         user:    AV.User.current(),
-                        ACL:     new AV.ACL(AV.User.current())
+                        ACL:     oUserInfo.ACL
                         }, {
                         success: function(oUserInfo) {
                         // The object was saved successfully.
@@ -627,7 +665,7 @@ $(function() {
             });
 
             
- 			
+ 			AV.history.navigate("");
 			this.render();
 		},
 
@@ -664,10 +702,19 @@ $(function() {
 
          // 加载一个 item项到列表中，把它加到 ul 元素里面
 	    addOne: function(activity) {
+            var query=new AV.Query(Activity);
+            query.get(activity.get("activity").id,{
+                success:function(oactivity){
+                    var view = new MyActivityEleView({model: oactivity});
+                    $("#content div.myActivity ul.myActivityList").append(view.render().el);
+                },
+                error:function(error){
+                    alert(error.message);
+                }
+            })
+            
 
-	      var view = new MyActivityEleView({model: activity});
-	     
-	      $("#content div.myActivity ul.myActivityList").append(view.render().el);
+	      
 	     
 	    },
 	
@@ -675,6 +722,7 @@ $(function() {
 	    addAll: function(collection) {
           var self = this;
 		  $("#content div.myActivity ul.myActivityList").html("");
+            
      
 	      collection.each(function(o){
 	      	self.addOne(o);
@@ -769,9 +817,11 @@ $(function() {
                     else{
                         oUserInfo=new UserInfo();
                         oUserInfo.set("nickName",AV.User.current().get("username"));
+                        oUserInfo.ACL=new AV.ACL(AV.User.current());
+                        oUserInfo.ACL.setPublicReadAccess(true);
                         oUserInfo.save({    
                         user:    AV.User.current(),
-                        ACL:     new AV.ACL(AV.User.current())
+                        ACL:     oUserInfo.ACL
                         }, {
                         success: function(oUserInfo) {
                         // The object was saved successfully.
@@ -814,6 +864,41 @@ $(function() {
 		}
 	});
 
+    var AppRouter = AV.Router.extend({
+        
+        routes: {
+            "":"index",
+            "ActivityApply/:activity_id": "jump",
+        },
+
+        initialize: function(options) {
+        },
+        
+        index:function(){
+            new AppView;
+        },
+
+        
+        
+        jump: function(activity_id) {
+            if(AV.User.current()){
+                var query=new AV.Query(Activity);
+                query.get(activity_id,{
+                    success:function(newActivity){
+//                    alert(JSON.stringify(newActivity));
+                        new ActivityApplyView({model:newActivity});
+                    },
+                    error:function(error){
+                        alert(error.message);
+                    }
+                });
+            }
+            else{
+                new LogInView();
+            }
+            //new ActivityApplyView();
+        }
+  });
 
 
 		/*************************主程序运行*************************************/
@@ -824,7 +909,9 @@ $(function() {
 	//加载首页页面
 
 	//加载执行登陆页面
-	new AppView;
+    new AppRouter;
+	//new AppView;
+    AV.history.start();
 	//new LogInView();
 	//new SignUpView();
 	//new ActivitySubmitView();
